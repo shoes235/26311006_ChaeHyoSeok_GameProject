@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>glc2d</id>
+    <version>0.1.0.7</version>
+    <authors>HeesungOh</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <description>GalicStudio Simple 2D graphics library for Visual C++</description>
+    <tags>native C++ graphics 2d glc2d</tags>
+  </metadata>
+</package>
