@@ -1,0 +1,48 @@
+#include <iostream>
+
+#include <glc2d.h>
+#include "CApplication.h"
+#include "TestScene.h"
+
+TestScene g_app;
+
+// link the 2d game library
+#if defined(_DEBUG)
+#if defined(_M_X64) // 64-bit 아키텍처
+#pragma comment(lib, "glc2d_x64_debug.lib")
+#elif defined(_M_IX86) // 32-bit 아키텍처
+#pragma comment(lib, "glc2d_win32_debug.lib")
+#endif
+#else
+#if defined(_M_X64)
+#pragma comment(lib, "glc2d_x64_release.lib")
+#elif defined(_M_IX86)
+#pragma comment(lib, "glc2d_win32_release.lib")
+#endif
+#endif
+
+int G_AppUpdate() 
+{
+	return g_app.Update();
+}
+
+int G_AppRender()
+{
+	return g_app.Render();
+}
+
+//Life Cycle
+void main()
+{
+	g_app.Init();
+
+	g_app.LoadTexture();
+
+	g2_SetRender(G_AppRender);
+
+	g2_Run();
+
+	g_app.RelaseTexture();
+
+	g_app.Destroy();
+}
