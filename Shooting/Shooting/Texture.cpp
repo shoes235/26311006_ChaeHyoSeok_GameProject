@@ -11,7 +11,7 @@ int Texture::Load()
 int Texture::Print()
 {
 	VEC2 pos(_texturePos);
-	g2_DrawAlphaOption(1);
+	g2_DrawAlphaOption(2);
 	g2_Draw2D(_texture, nullptr, &pos);
 	g2_DrawAlphaOption(0);
 
