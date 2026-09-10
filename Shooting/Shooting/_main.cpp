@@ -3,8 +3,9 @@
 #include <glc2d.h>
 #include "CApplication.h"
 #include "TestScene.h"
+#include "TitleScene.h"
 
-TestScene g_app;
+TitleScene g_app;
 
 // link the 2d game library
 #if defined(_DEBUG)
@@ -36,13 +37,9 @@ void main()
 {
 	g_app.Init();
 
-	g_app.LoadTexture();
-
 	g2_SetRender(G_AppRender);
 
 	g2_Run();
-
-	g_app.RelaseTexture();
 
 	g_app.Destroy();
 }
