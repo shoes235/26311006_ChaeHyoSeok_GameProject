@@ -18,5 +18,6 @@ public:
 	int Render() override;
 protected:
 	vector<Texture> _textures;
+	Texture _background { "rsc/MainMenu.png",VEC2(0,0)};
 };
 

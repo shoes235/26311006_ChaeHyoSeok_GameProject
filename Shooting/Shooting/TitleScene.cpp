@@ -6,11 +6,13 @@ int TitleScene::Init()
 
 
 	VEC2 zero = { 0,0 };
+
 	_textures.emplace_back("rsc/Babem.png",zero);
 	_textures.emplace_back("rsc/cat.jpg",zero);
 	_textures.emplace_back("rsc/images.jpg",zero);
 	_textures.emplace_back("rsc/very-silly-cat-silly.png",zero);
 
+	_background.Load();
 	for (auto& texture : _textures)	texture.Load();
 
 	return 0;
@@ -19,8 +21,10 @@ int TitleScene::Init()
 int TitleScene::Render()
 {
 	IScene::Render();
-	
+
 	Randomizer randSys;
+
+	_background.Print();
 
 	for (auto& texture : _textures)
 	{
