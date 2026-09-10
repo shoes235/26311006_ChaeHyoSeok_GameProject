@@ -1,0 +1,23 @@
+#pragma once
+#include <string>
+#include <glc2d.h>
+class Texture
+{
+protected :
+	std::string _filePath;
+
+	int _texture = -1;
+	VEC2 _texturePos{0,0};
+
+public :
+	Texture(std::string path, VEC2 pos) : _filePath(path), _texturePos(pos) {}
+	int Load();
+	int Release();
+	int Print();
+
+	int SetPos(VEC2 pos);
+	VEC2 GetPos();
+
+	std::string GetFilePath();
+};
+
