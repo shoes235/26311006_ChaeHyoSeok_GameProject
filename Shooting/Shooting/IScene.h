@@ -25,7 +25,7 @@ public:
 	virtual ~IScene() {}
 
 	//Windows
-	int SetWindow();
+	int SetWindow(bool setWinPos = true);
 
 
 	//Birth

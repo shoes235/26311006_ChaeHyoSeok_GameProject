@@ -2,7 +2,7 @@
 
 int InGameScene::Init()
 {
-	IScene::Init();
+	SetWindow(false);
 
 	return 0;
 }

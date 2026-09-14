@@ -1,16 +1,25 @@
 #include "IScene.h"
 
-int IScene::SetWindow()
+int IScene::SetWindow(bool setWinPos)
 {
 	HWND hwnd = GetActiveWindow();
 
 	if (hwnd != nullptr)
 	{
+		int x = _winPos.x; int y = _winPos.y;
+		if (!setWinPos)
+		{
+			RECT rect;
+			GetWindowRect(hwnd, &rect);
+			x = rect.left;
+			y = rect.top;
+		}
+
 		MoveWindow
 		(
 			hwnd,
-			_winPos.x,
-			_winPos.y,
+			x,
+			y,
 			_winSize.cx,
 			_winSize.cy,
 			TRUE
