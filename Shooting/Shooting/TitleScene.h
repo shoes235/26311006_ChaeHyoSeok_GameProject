@@ -4,6 +4,7 @@
 #include "InGameScene.h"
 #include "Texture.h"
 #include "Randomizer.h"
+#include "InputManager.h"
 
 #include <vector>
 using std::vector;
@@ -25,6 +26,10 @@ private:
 	vector<Texture> _textures;
 	Texture _background { "rsc/MainMenu.png",VEC2(0,0)};
 
+	//text
 	int nFont = 0;
+
+	//Input
+	InputManager _inputMgr;
 };
 

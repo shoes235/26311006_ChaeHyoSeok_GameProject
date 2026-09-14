@@ -7,6 +7,14 @@ int TitleScene::Init()
 
 	nFont = g2_FontCreate("±¼¸²", 24, 0);
 
+	_inputMgr.RegisterAction(
+		{VK_SPACE},
+		[=]() {
+			InGameScene* nextScene = new InGameScene();
+			g_SceneMgr.ChangeScene(nextScene, E_SceneType::IN_GAME);
+		}
+		);
+
 	VEC2 zero = { 0,0 };
 
 	_textures.emplace_back("rsc/Babem.png",zero);
@@ -22,12 +30,7 @@ int TitleScene::Init()
 
 int TitleScene::Update()
 {
-	const KEYCODE* pkey = g2_GetKeyboard();
-	if (pkey && pkey[VK_SPACE])
-	{
-		InGameScene* nextScene = new InGameScene();
-		g_SceneMgr.ChangeScene(nextScene, E_SceneType::IN_GAME);
-	}
+	_inputMgr.GetInput();
 
 	//ÅØ½ºÃÄ ·£´ý ÀÌµ¿
 	Randomizer randSys;
