@@ -8,5 +8,9 @@ public:
 	{
 		_winName = "InGame";
 	}
+public:
+	int Init() override;
+	int Render() override;
+	int Update() override;
 };
 
