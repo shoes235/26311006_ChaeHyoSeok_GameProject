@@ -1,5 +1,28 @@
 #include "IScene.h"
 
+int IScene::SetWindow()
+{
+	HWND hwnd = GetActiveWindow();
+
+	if (hwnd != nullptr)
+	{
+		MoveWindow
+		(
+			hwnd,
+			_winPos.x,
+			_winPos.y,
+			_winSize.cx,
+			_winSize.cy,
+			TRUE
+		);
+	}
+
+	g2_SetWindowTitle(_winName.c_str());
+	g2_SetClearColor(_winColor);
+
+	return 0;
+}
+
 bool IScene::CheckAndProcess(E_SceneType curType)
 {
 	if (_sceneType != curType)
@@ -13,10 +36,7 @@ bool IScene::CheckAndProcess(E_SceneType curType)
 
 int IScene::Init()
 {
-	//window
-	g2_SetClearColor(_winColor);
-	g2_InitSdk();
-	g2_CreateWin(this->_winPos.x, this->_winPos.y, this->_winSize.cx, this->_winSize.cy, this->_winName.c_str());
+	SetWindow();
 
 	return 0;
 }
@@ -38,7 +58,5 @@ int IScene::Render()
 
 int IScene::Destroy()
 {
-	g2_DestroyWin();
-
 	return 0;
 }

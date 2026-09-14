@@ -1,9 +1,13 @@
 #pragma once
 #include "E_SceneType.h"
+#include "SceneManager.h"
 #include <iostream>
 #include <string>
 #include <windows.h>
 #include <glc2d.h>
+
+class SceneManager;
+extern SceneManager g_SceneMgr;
 
 class IScene
 {
@@ -19,6 +23,10 @@ protected:
 public:
 	IScene(E_SceneType type) : _sceneType(type){}
 	virtual ~IScene() {}
+
+	//Windows
+	int SetWindow();
+
 
 	//Birth
 	virtual int Init();

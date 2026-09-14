@@ -1,5 +1,7 @@
 #pragma once
+#include <glc2d.h>
 #include "IScene.h"
+#include "InGameScene.h"
 #include "Texture.h"
 #include "Randomizer.h"
 
@@ -11,13 +13,17 @@ class TitleScene : public IScene
 public :
 	TitleScene() : IScene(E_SceneType::TITLE)
 	{
-		
+		_winName = "Title 창";
+		_winColor = 0x000000; // 검은색
 	}
 public:
 	int Init() override;
 	int Render() override;
-protected:
+	int Update() override;
+private:
 	vector<Texture> _textures;
 	Texture _background { "rsc/MainMenu.png",VEC2(0,0)};
+
+	int nFont = 0;
 };
 

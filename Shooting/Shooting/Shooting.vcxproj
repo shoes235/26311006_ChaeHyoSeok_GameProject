@@ -124,12 +124,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CApplication.cpp" />
+    <ClCompile Include="InGameScene.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="_main.cpp" />
   </ItemGroup>
@@ -137,13 +136,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CApplication.h" />
     <ClInclude Include="E_SceneType.h" />
+    <ClInclude Include="InGameScene.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

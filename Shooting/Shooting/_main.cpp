@@ -1,11 +1,11 @@
 #include <iostream>
 
 #include <glc2d.h>
-#include "CApplication.h"
-#include "TestScene.h"
+#include "SceneManager.h"
+
 #include "TitleScene.h"
 
-TitleScene g_app;
+SceneManager g_SceneMgr;
 
 // link the 2d game library
 #if defined(_DEBUG)
@@ -22,24 +22,15 @@ TitleScene g_app;
 #endif
 #endif
 
-int G_AppUpdate() 
-{
-	return g_app.Update();
-}
-
-int G_AppRender()
-{
-	return g_app.Render();
-}
-
 //Life Cycle
 void main()
 {
-	g_app.Init();
+	g_SceneMgr.InitEngine();
 
-	g2_SetRender(G_AppRender);
+	TitleScene* title = new TitleScene();
+	g_SceneMgr.ChangeScene(title, E_SceneType::TITLE);
 
-	g2_Run();
-
-	g_app.Destroy();
+	//Life::Update
+	
+	g_SceneMgr.Run();
 }
