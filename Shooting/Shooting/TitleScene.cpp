@@ -51,13 +51,17 @@ int TitleScene::Render()
 
 	_background.Print();
 
-	for (auto& texture : _textures)
-	{
-		texture.Print();
-	}
+	for (auto& texture : _textures) texture.Print();
 
 	g2_FontDrawText(nFont, { 10,10,500,40 }, 0xFFFFFFFF, "SPACE 를 눌러 다음 씬으로 이동");
 
 	return 0;
 }
 
+int TitleScene::Destroy()
+{
+	_background.Release();
+	for (auto& texture : _textures) texture.Release();
+
+	return 0;
+}

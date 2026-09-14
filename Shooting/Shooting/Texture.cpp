@@ -25,12 +25,12 @@ int Texture::Release()
 	return 0;
 }
 
-
 int Texture::SetPos(VEC2 pos)
 {
 	_texturePos = pos;
 	return 0;
 }
+
 VEC2 Texture::GetPos()
 {
 	return _texturePos;
