@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="InGameScene.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="E_SceneType.h" />
     <ClInclude Include="InGameScene.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="Texture.h" />
