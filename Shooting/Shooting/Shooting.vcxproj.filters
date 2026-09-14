@@ -13,54 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Scene">
+      <UniqueIdentifier>{07223f32-3cdb-4f89-b8e8-092a62d6a23c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene\Levels">
+      <UniqueIdentifier>{b171567f-c574-46f3-95c8-edd66fe73b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scene">
+      <UniqueIdentifier>{abbfccd6-d02f-415a-adc6-9e1bee0d49c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Scene\Levels">
+      <UniqueIdentifier>{7d2cf7a2-6e17-4e5a-892e-4ac7b8afa2fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Randomizer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="InGameScene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Scene\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>소스 파일\Scene\Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="E_SceneType.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Randomizer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="E_SceneType.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="InGameScene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Scene\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>헤더 파일\Scene\Levels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
