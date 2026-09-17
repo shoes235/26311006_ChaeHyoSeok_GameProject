@@ -177,11 +177,22 @@ int InGameScene::Update()
 		{
 			g2_SoundPlay(_correctSFX, false);
 			_score++;
+
+			//bg
+			SetWindowColor(0xFF00FF00);
+
+			_bgRemainColTime = _bgColTime;
+
 		}
 		else
 		{
 			g2_SoundPlay(_wrongSFX, false);
 			_life--;
+
+			//bg
+			SetWindowColor(0xFFFF0000);
+
+			_bgRemainColTime = _bgColTime;
 		}
 		if (_life <= 0)
 		{
@@ -192,13 +203,24 @@ int InGameScene::Update()
 		NextCommand();
 	}
 
+	if (_bgRemainColTime > 0.0f)
+	{
+		_bgRemainColTime -= delta;
+
+		if (_bgRemainColTime <= 0.0f)
+		{
+			_bgRemainColTime = 0.0f;
+			SetWindowColor(0xFFFFFFFF);
+		}
+	}
+
+
+
 	if (_remainGameTime <= 0.0f)
 	{
 		_remainGameTime = 0.0f;
 		_gameOver = true;
 	}
-
-
 	
 	return 0;
 }

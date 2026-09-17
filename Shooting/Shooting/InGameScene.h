@@ -51,6 +51,10 @@ private:
 	float _commandTime = 5.0f;
 	float _remainCommandTime = 0.0f;
 
+	//bg
+	float _bgColTime = 1.0f;
+	float _bgRemainColTime = 0.0f;
+
 	//Progress
 	ProgressBar* _bar;
 
