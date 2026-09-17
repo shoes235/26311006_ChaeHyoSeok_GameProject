@@ -8,6 +8,10 @@ Texture* AnimationClip::GetTexture(int idx)
 }
 
 int AnimationClip::GetFrameCount() const { return (int)_textures.size(); }
+
 float AnimationClip::GetFrameDuration() const { return _frameDuration; }
+void AnimationClip::SetFrameDuration(float duration) { _frameDuration = duration; }
+
+
 bool AnimationClip::IsLoop() const { return _isLoop; }
 string AnimationClip::GetName() const { return _clipName; }

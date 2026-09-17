@@ -38,6 +38,13 @@ void Animator::Play(float delta)
 		}
 	}
 }
+
+void Animator::Restart()
+{
+	_curFrameIdx = 0;
+	_accumulatedTime = 0.0f;
+}
+
 Texture* Animator::GetCurrentTexture()
 {
 	if (!_curClip) return nullptr;

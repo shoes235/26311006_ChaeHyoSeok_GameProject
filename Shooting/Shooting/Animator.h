@@ -28,7 +28,10 @@ public:
 
 	void AddClip(const string& name, AnimationClip* clip);
 	void ChangeClip(const string& name);
+
 	void Play(float delta);
+	void Restart();
+
 	Texture* GetCurrentTexture();
 };
 

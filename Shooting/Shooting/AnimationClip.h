@@ -32,7 +32,10 @@ public:
 	Texture* GetTexture(int idx);
 
 	int GetFrameCount() const;
+
 	float GetFrameDuration() const;
+	void SetFrameDuration(float duration);
+	
 	bool IsLoop() const;
 	string GetName() const;
 
