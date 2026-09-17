@@ -8,6 +8,9 @@ int InGameScene::Init()
 	_bgm = g2_SoundLoad("rsc/audio/Glorious Morning.mp3");
 	g2_SoundPlay(_bgm, true);
 
+	_correctSFX = g2_SoundLoad("rsc/audio/SFX/correct.mp3");
+	_wrongSFX = g2_SoundLoad("rsc/audio/SFX/wrong.mp3");
+
 
 	//font
 	_font = g2_FontCreate("±¼¸²", 24, 0);
@@ -171,10 +174,15 @@ int InGameScene::Update()
 	if (_remainCommandTime < 0.0f)
 	{
 		if (CheckAnswer())
+		{
+			g2_SoundPlay(_correctSFX, false);
 			_score++;
+		}
 		else
+		{
+			g2_SoundPlay(_wrongSFX, false);
 			_life--;
-
+		}
 		if (_life <= 0)
 		{
 			_gameOver = true;
@@ -202,6 +210,9 @@ int InGameScene::Destroy()
 	_objs.clear();
 
 	g2_SoundRelease(_bgm);
+	g2_SoundRelease(_correctSFX);
+	g2_SoundRelease(_wrongSFX);
+
 	return 0;
 }
 

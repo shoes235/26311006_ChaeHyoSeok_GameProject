@@ -66,6 +66,8 @@ private:
 
 	//Audio
 	int _bgm = 0;
+	int _correctSFX = 0;
+	int _wrongSFX = 0;
 
 private:
 	void NextCommand();
