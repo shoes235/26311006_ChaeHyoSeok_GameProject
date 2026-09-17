@@ -205,7 +205,7 @@ void InGameScene::NextCommand()
 
 	Randomizer randSys;
 
-	int comm = randSys.Rand(0, 4);
+	int comm = randSys.Rand(0, 3);
 
 	_command = static_cast<E_Command>(comm);
 
