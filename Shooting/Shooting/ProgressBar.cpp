@@ -3,7 +3,7 @@
 ProgressBar::ProgressBar(VEC2 pos)
 	: GameObject(pos)
 {
-	string prefix = "rsc/ProgressBar/Bar_";
+	string prefix = "rsc/imgs/ProgressBar/Bar_";
 
 	vector<Texture*> texes(5);
 

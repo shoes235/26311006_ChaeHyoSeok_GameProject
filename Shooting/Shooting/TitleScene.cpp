@@ -5,7 +5,13 @@ int TitleScene::Init()
 {
 	IScene::Init();
 
-	nFont = g2_FontCreate("굴림", 24, 0);
+	//audio
+	_bgm = g2_SoundLoad("rsc/audio/Jumper.mp3");
+	g2_SoundPlay(_bgm, true);
+
+
+	//font
+	nFont = g2_FontCreate("굴림", 48, 0);
 
 	//input 등록
 	_inputMgr.RegisterAction
@@ -20,13 +26,18 @@ int TitleScene::Init()
 
 	VEC2 zero = { 0,0 };
 
-	_textures.emplace_back(new Texture("rsc/Babem.png",zero));
-	_textures.emplace_back(new Texture("rsc/cat.jpg",zero));
-	_textures.emplace_back(new Texture("rsc/images.jpg",zero));
-	_textures.emplace_back(new Texture("rsc/very-silly-cat-silly.png",zero));
+	string prefix = "rsc/imgs/cats/";
+	vector<Texture*>texes(6);
+
+	for (int i = 0; i < texes.size(); ++i)
+	{
+		texes[i] = new Texture(prefix + std::to_string(i) + ".png",zero);
+		texes[i]->Load();
+
+		_textures.push_back(texes[i]);
+	}
 
 	_background->Load();
-	for (auto* texture : _textures)	texture->Load();
 
 	return 0;
 }
@@ -38,13 +49,70 @@ int TitleScene::Update()
 	//텍스쳐 랜덤 이동
 	Randomizer randSys;
 
-	for (auto* texture : _textures)
+	_blinkTimer += 0.016f;
+
+	if (_blinkTimer >= 10.0f)
 	{
-		VEC2 rnPos;
-		rnPos.x = randSys.Rand(0, _winSize.cx);
-		rnPos.y = randSys.Rand(0, _winSize.cy);
-		texture->SetPos(rnPos);
+		_blinkTimer = 0.0f;
+		_showText = !_showText;
 	}
+
+	_colTime += 0.016f;
+
+	if (_colTime >= 0.1f)
+	{
+		_colTime = 0;
+
+		switch (_colorDir)
+		{
+		case 0:
+			_g++;
+			if (_g >= 255) _colorDir++;
+			break;
+
+		case 1:
+			_r--;
+			if (_r <= 0) _colorDir++;
+			break;
+
+		case 2:
+			_b++;
+			if (_b >= 255) _colorDir++;
+			break;
+
+		case 3:
+			_g--;
+			if (_g <= 0) _colorDir++;
+			break;
+
+		case 4:
+			_r++;
+			if (_r >= 255) _colorDir++;
+			break;
+
+		case 5:
+			_b--;
+			if (_b <= 0) _colorDir = 0;
+			break;
+		}
+
+		_color = 0xFF000000 | (_r << 16) | (_g << 8) | _b;
+	}
+
+	_texTimer += 0.016f;
+	if (_texTimer >= 2.0f)
+	{
+		_texTimer = 0.0f;
+
+		for (auto* texture : _textures)
+		{
+			VEC2 rnPos;
+			rnPos.x = randSys.Rand(0, _winSize.cx);
+			rnPos.y = randSys.Rand(0, _winSize.cy);
+			texture->SetPos(rnPos);
+		}
+	}
+
 
 	return 0;
 }
@@ -59,7 +127,10 @@ int TitleScene::Render()
 
 	for (auto* texture : _textures) texture->Print();
 
-	g2_FontDrawText(nFont, { 10,10,500,40 }, 0xFFFFFFFF, "SPACE 를 눌러 다음 씬으로 이동");
+
+
+	if(_showText)
+		g2_FontDrawText(nFont, { 380,500,1000,800 }, _color, "SPACE 를 눌러 게임시작");
 
 	return 0;
 }
@@ -68,6 +139,8 @@ int TitleScene::Destroy()
 {
 	delete _background;
 	for (auto& texture : _textures)delete texture;
+
+	g2_SoundRelease(_bgm);
 
 	return 0;
 }

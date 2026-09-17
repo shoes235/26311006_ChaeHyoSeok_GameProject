@@ -64,6 +64,9 @@ private:
 
 	bool _gameOver = false;
 
+	//Audio
+	int _bgm = 0;
+
 private:
 	void NextCommand();
 	bool CheckAnswer();

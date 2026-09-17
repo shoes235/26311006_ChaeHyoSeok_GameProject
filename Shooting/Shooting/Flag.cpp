@@ -4,8 +4,8 @@ Flag::Flag(VEC2 pos, E_FlagColorType col)
 	: GameObject(pos),_colorType(col)
 {
 	string prefix = (_colorType == E_FlagColorType::BLUE)?
-		"rsc/Flag/Blue/" 
-		: "rsc/Flag/White/";
+		"rsc/imgs/Flag/Blue/" 
+		: "rsc/imgs/Flag/White/";
 
 
 	Texture* upTex = new Texture(prefix + "Up.png", pos);

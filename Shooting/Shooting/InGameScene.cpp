@@ -4,6 +4,11 @@ int InGameScene::Init()
 {
 	SetWindow(false);
 
+	//Audio
+	_bgm = g2_SoundLoad("rsc/audio/Glorious Morning.mp3");
+	g2_SoundPlay(_bgm, true);
+
+
 	//font
 	_font = g2_FontCreate("±¼¸²", 24, 0);
 	_commFont = g2_FontCreate("±¼¸²", 126, 0);
@@ -196,7 +201,7 @@ int InGameScene::Destroy()
 		delete i;
 	_objs.clear();
 
-	
+	g2_SoundRelease(_bgm);
 	return 0;
 }
 
