@@ -13,13 +13,13 @@ int InputManager::GetInput()
 
 	for (const auto& bind : _bindings)
 	{
-		bool isTriggered = true;
+		bool isTriggered = false;
 
 		for (auto key : bind.keys)
 		{
-			if (!pkey[key])
+			if (pkey[key])
 			{
-				isTriggered = false;
+				isTriggered = true;
 				break;
 			}
 
@@ -27,6 +27,34 @@ int InputManager::GetInput()
 		}
 		if (isTriggered) bind.callback();
 	}
+
+	return 0;
+}
+
+int InputManager::GetKeyDownInput()
+{
+	const KEYCODE* pkey = g2_GetKeyboard();
+	if (!pkey) return 0;
+	
+	for (const auto& bind : _bindings)
+	{
+		bool isTriggered = false;
+
+		for (auto key : bind.keys)
+		{
+			if (pkey[key] && !_preKeyUp[key])
+			{
+				isTriggered = true;
+				break;
+			}
+		}
+
+		if (isTriggered)
+			bind.callback();
+	}
+
+	for (int i = 0; i < 256; ++i)
+		_preKeyUp[i] = pkey[i];
 
 	return 0;
 }

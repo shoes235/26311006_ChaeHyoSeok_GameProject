@@ -21,9 +21,10 @@ public :
 
 	int RegisterAction(const vector<unsigned char>& keys,function<void()> callback);
 	int GetInput();
+	int GetKeyDownInput();
 
 private:
 	vector<ActionBinding> _bindings;
-
+	KEYCODE _preKeyUp[256]{};
 };
 
