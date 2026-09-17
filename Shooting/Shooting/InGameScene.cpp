@@ -113,6 +113,14 @@ int InGameScene::Render()
 		"LIFE : %1d",_life
 	);
 
+	g2_FontDrawText
+	(
+		_font,
+		{ 20, 650,500, 800},
+		0xFF000000,
+		"ESC : 종료 / <- : 청기 / -> : 백기"
+	);
+
 
 	//종료
 	if (_gameOver)
