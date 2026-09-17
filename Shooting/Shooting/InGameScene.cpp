@@ -10,7 +10,7 @@ int InGameScene::Init()
 
 	_correctSFX = g2_SoundLoad("rsc/audio/SFX/correct.mp3");
 	_wrongSFX = g2_SoundLoad("rsc/audio/SFX/wrong.mp3");
-
+	_gameOverSFX = g2_SoundLoad("rsc/audio/SFX/GameOver.mp3");
 
 	//font
 	_font = g2_FontCreate("±¼¸²", 24, 0);
@@ -133,20 +133,20 @@ int InGameScene::Render()
 	//Á¾·á
 	if (_gameOver)
 	{
+		g2_SoundPlay(_gameOverSFX, false);
+
 		g2_FontDrawText
 		(
 			_commFont,
 			{ 300, 100, 1200, 220 },
-			0xFFFF0000,
+			0xFFFFFFFF,
 			"GAME OVER"
 		);
+
+		return 0;
+
 	}
 
-
-
-
-
-	return 0;
 }
 int InGameScene::Update()
 {

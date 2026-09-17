@@ -72,6 +72,7 @@ private:
 	int _bgm = 0;
 	int _correctSFX = 0;
 	int _wrongSFX = 0;
+	int _gameOverSFX = 0;
 
 private:
 	void NextCommand();
