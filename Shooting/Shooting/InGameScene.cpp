@@ -6,14 +6,18 @@ int InGameScene::Init()
 
 	//font
 	_font = g2_FontCreate("굴림", 24, 0);
+	_commFont = g2_FontCreate("굴림", 126, 0);
 
 	
 	//obj instance
 	_blueFlag = new Flag(VEC2{ 500,350 }, E_FlagColorType::BLUE);
 	_whiteFlag = new Flag(VEC2{ 700,350 }, E_FlagColorType::WHITE);
 
+	_bar = new ProgressBar(VEC2{ 370,15 });
+
 	_objs.push_back(_blueFlag);
 	_objs.push_back(_whiteFlag);
+	_objs.push_back(_bar);
 
 	//Register Input
 	_inputMgr.RegisterAction
@@ -33,6 +37,15 @@ int InGameScene::Init()
 		}
 	);
 
+	_inputMgr.RegisterAction
+	(
+		{ VK_ESCAPE,'D' },
+		[=]()
+		{
+			_gameOver = true;
+		}
+	);
+
 	//Timer
 	_timer.Init();
 
@@ -46,15 +59,75 @@ int InGameScene::Render()
 {
 	IScene::Render();
 	
-
-	
-	
 	//Objs
 	for (auto* i : _objs)
 		i->Render();
 
+	GiveCommand();
+
 	//Font
-	g2_FontDrawText(_font, { 390,10,890,50 }, 0xFF000000, "SPACE 를 눌러 다음 씬으로 이동");
+	if (!_gameOver)
+	{
+		//comm
+		g2_FontDrawText
+		(
+			_commFont,
+			{ 400,150,1280,300 },
+			0xFF000000,
+			_commText.c_str());
+	}
+	
+	//Time
+	g2_FontDrawText
+	(
+		_font,
+		{ 550,50,890,90 },
+		0xFFFFFFFF,
+		"Time Left : %.1f", _remainCommandTime
+	);
+
+	g2_FontDrawText
+	(
+		_font,
+		{ 20,20,250,60 },
+		0xFF000000,
+		"Game Time : %.1f", _remainGameTime
+	);
+
+	//Score
+
+	g2_FontDrawText
+	(
+		_font,
+		{ 20,60,250,100 },
+		0xFF000000,
+		"Score : %1d", _score
+	);
+
+	//Life
+	g2_FontDrawText
+	(
+		_font,
+		{ 20, 100, 300, 200 },
+		0xFF000000,
+		"LIFE : %1d",_life
+	);
+
+
+	//종료
+	if (_gameOver)
+	{
+		g2_FontDrawText
+		(
+			_commFont,
+			{ 300, 100, 1200, 220 },
+			0xFFFF0000,
+			"GAME OVER"
+		);
+	}
+
+
+
 
 
 	return 0;
@@ -78,12 +151,11 @@ int InGameScene::Update()
 	_inputMgr.GetKeyDown();
 
 	//Obj
-	float delta = 0.016f;
 	for (auto* i : _objs)
 		i->Update(delta);
 
 	//Time 종료
-	if (_remainCommandTime <= 0.0f)
+	if (_remainCommandTime < 0.0f)
 	{
 		if (CheckAnswer())
 			_score++;
@@ -122,6 +194,7 @@ int InGameScene::Destroy()
 
 void InGameScene::NextCommand()
 {
+
 	Randomizer randSys;
 
 	int comm = randSys.Rand(0, 4);
@@ -131,6 +204,8 @@ void InGameScene::NextCommand()
 	_commandTime = GetCommandLimitTime();
 
 	_remainCommandTime = _commandTime;
+
+	_bar->SetTime(_commandTime);
 }
 
 float InGameScene::GetCommandLimitTime()
@@ -160,4 +235,23 @@ bool InGameScene::CheckAnswer()
 	}
 
 	return false;
+}
+
+void InGameScene::GiveCommand()
+{
+	switch (_command)
+	{
+	case E_Command::BLUE_UP:
+		_commText = "청기 올려";
+		break;
+	case E_Command::BLUE_DOWN:
+		_commText = "청기 내려";
+		break;
+	case E_Command::WHITE_UP:
+		_commText = "백기 올려";
+		break;
+	case E_Command::WHITE_DOWN:
+		_commText = "백기 내려";
+		break;
+	}
 }

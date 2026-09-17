@@ -5,6 +5,10 @@
 #include "InputManager.h"
 #include "Timer.h"
 #include "Randomizer.h"
+#include "ProgressBar.h"
+
+#include <string>
+using std::string;
 
 #include <vector>
 using std::vector;
@@ -31,6 +35,7 @@ private:
 
 	//font
 	int _font = 0;
+	int _commFont = 0;
 
 	//input
 	InputManager _inputMgr;
@@ -40,14 +45,18 @@ private:
 	//Timer
 	Timer _timer;
 
-	float _gameTime = 60.0f;
+	float _gameTime = 300.0f;
 	float _remainGameTime = 0.0f;
 
 	float _commandTime = 5.0f;
 	float _remainCommandTime = 0.0f;
 
+	//Progress
+	ProgressBar* _bar;
+
 	//command
-	E_Command _command;
+	E_Command _command = E_Command::BLUE_DOWN;
+	string _commText = "";
 
 	//Score
 	int _score = 0;
@@ -59,7 +68,10 @@ private:
 	void NextCommand();
 	bool CheckAnswer();
 
+	void GiveCommand();
+
 	float GetCommandLimitTime();
+
 public:
 	InGameScene() : IScene(E_SceneType::IN_GAME)
 	{
