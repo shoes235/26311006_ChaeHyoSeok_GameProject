@@ -9,11 +9,11 @@ int InGameScene::Init()
 
 	
 	//obj instance
-	Flag* blueFlag = new Flag(VEC2{ 250,350 }, E_FlagColorType::BLUE);
-	Flag* whiteFlag = new Flag(VEC2{ 1000,350 }, E_FlagColorType::WHITE);
+	_blueFlag = new Flag(VEC2{ 500,350 }, E_FlagColorType::BLUE);
+	_whiteFlag = new Flag(VEC2{ 700,350 }, E_FlagColorType::WHITE);
 
-	_objs.push_back(blueFlag);
-	_objs.push_back(whiteFlag);
+	_objs.push_back(_blueFlag);
+	_objs.push_back(_whiteFlag);
 
 	//Register Input
 	_inputMgr.RegisterAction
@@ -21,7 +21,7 @@ int InGameScene::Init()
 		{ VK_LEFT,'A' }, 
 		[=]()
 		{
-			blueFlag->ChangeFlag();
+			_blueFlag->ChangeFlag();
 		}
 	);
 	_inputMgr.RegisterAction
@@ -29,10 +29,16 @@ int InGameScene::Init()
 		{ VK_RIGHT,'D' },
 		[=]()
 		{
-			whiteFlag->ChangeFlag();
+			_whiteFlag->ChangeFlag();
 		}
 	);
 
+	//Timer
+	_timer.Init();
+
+	_remainGameTime = _gameTime;
+
+	NextCommand();
 
 	return 0;
 }
@@ -57,14 +63,49 @@ int InGameScene::Update()
 {
 	IScene::Update();
 	
-	_inputMgr.GetKeyDownInput();
+	if (_gameOver)
+		return 0;
 
-	//
+	//Times
+	_timer.Update();
+
+	float delta = _timer.GetDeltaTime();
+
+	_remainGameTime -= delta;
+	_remainCommandTime -= delta;
+
+	//Input
+	_inputMgr.GetKeyDown();
+
+	//Obj
 	float delta = 0.016f;
 	for (auto* i : _objs)
 		i->Update(delta);
 
-	
+	//Time Á¾·á
+	if (_remainCommandTime <= 0.0f)
+	{
+		if (CheckAnswer())
+			_score++;
+		else
+			_life--;
+
+		if (_life <= 0)
+		{
+			_gameOver = true;
+			return 0;
+		}
+
+		NextCommand();
+	}
+
+	if (_remainGameTime <= 0.0f)
+	{
+		_remainGameTime = 0.0f;
+		_gameOver = true;
+	}
+
+
 	
 	return 0;
 }
@@ -77,4 +118,46 @@ int InGameScene::Destroy()
 
 	
 	return 0;
+}
+
+void InGameScene::NextCommand()
+{
+	Randomizer randSys;
+
+	int comm = randSys.Rand(0, 4);
+
+	_command = static_cast<E_Command>(comm);
+
+	_commandTime = GetCommandLimitTime();
+
+	_remainCommandTime = _commandTime;
+}
+
+float InGameScene::GetCommandLimitTime()
+{
+	float progress = 1.0f - (_remainGameTime / _gameTime);
+
+	float time = 5.0f - progress * 4.0f;
+
+	if (time < 1.0f)
+		time = 1.0f;
+
+	return time;
+}
+
+bool InGameScene::CheckAnswer()
+{
+	switch (_command)
+	{
+	case E_Command::BLUE_UP:
+		return _blueFlag->IsUp();
+	case E_Command::BLUE_DOWN:
+		return !_blueFlag->IsUp();
+	case E_Command::WHITE_UP:
+		return _whiteFlag->IsUp();
+	case E_Command::WHITE_DOWN:
+		return !_whiteFlag->IsUp();
+	}
+
+	return false;
 }

@@ -6,7 +6,7 @@ int InputManager::RegisterAction(const vector<unsigned char>& keys, function<voi
 	return 0;
 }
 
-int InputManager::GetInput()
+int InputManager::GetKey()
 {
 	const KEYCODE* pkey = g2_GetKeyboard();
 	if (!pkey) return 0;
@@ -31,7 +31,7 @@ int InputManager::GetInput()
 	return 0;
 }
 
-int InputManager::GetKeyDownInput()
+int InputManager::GetKeyDown()
 {
 	const KEYCODE* pkey = g2_GetKeyboard();
 	if (!pkey) return 0;

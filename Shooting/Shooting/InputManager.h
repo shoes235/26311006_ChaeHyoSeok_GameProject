@@ -20,8 +20,8 @@ public :
 	};
 
 	int RegisterAction(const vector<unsigned char>& keys,function<void()> callback);
-	int GetInput();
-	int GetKeyDownInput();
+	int GetKey();
+	int GetKeyDown();
 
 private:
 	vector<ActionBinding> _bindings;
