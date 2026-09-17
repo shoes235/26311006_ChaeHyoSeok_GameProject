@@ -138,9 +138,18 @@ int TitleScene::Render()
 int TitleScene::Destroy()
 {
 	delete _background;
-	for (auto& texture : _textures)delete texture;
+	_background = nullptr;
+
+	for (auto& texture : _textures)
+	{
+		delete texture;
+		texture = nullptr;
+	}
+
+	_textures.clear();
 
 	g2_SoundRelease(_bgm);
+	_bgm = 0;
 
 	return 0;
 }
