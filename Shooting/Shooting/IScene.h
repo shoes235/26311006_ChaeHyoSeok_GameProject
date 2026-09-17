@@ -26,6 +26,7 @@ public:
 
 	//Windows
 	int SetWindow(bool setWinPos = true);
+	void SetWindowColor(unsigned int col);
 
 
 	//Birth

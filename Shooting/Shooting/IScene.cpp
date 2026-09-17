@@ -32,6 +32,13 @@ int IScene::SetWindow(bool setWinPos)
 	return 0;
 }
 
+void IScene::SetWindowColor(unsigned int col)
+{
+	_winColor = col;
+	g2_SetClearColor(_winColor);
+}
+
+
 bool IScene::CheckAndProcess(E_SceneType curType)
 {
 	if (_sceneType != curType)
