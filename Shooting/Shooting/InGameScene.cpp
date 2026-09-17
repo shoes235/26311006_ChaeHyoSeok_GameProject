@@ -47,7 +47,7 @@ int InGameScene::Init()
 
 	_inputMgr.RegisterAction
 	(
-		{ VK_ESCAPE,'D' },
+		{ VK_ESCAPE },
 		[=]()
 		{
 			_gameOver = true;
