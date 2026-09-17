@@ -23,8 +23,8 @@ public:
 	int Update() override;
 	int Destroy() override;
 private:
-	vector<Texture> _textures;
-	Texture _background { "rsc/MainMenu.png",VEC2(0,0)};
+	vector<Texture*> _textures;
+	Texture* _background = new Texture("rsc/MainMenu.png",VEC2(0,0));
 
 	//text
 	int nFont = 0;
