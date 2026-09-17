@@ -131,6 +131,7 @@
     <ClCompile Include="InGameScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="InGameScene.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
+    <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="SceneManager.h" />
