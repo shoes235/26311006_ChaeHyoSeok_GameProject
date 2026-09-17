@@ -26,15 +26,25 @@ Flag::Flag(VEC2 pos, E_FlagColorType col)
 	_isUp = false;
 }
 
-
+void Flag::SetFlag(bool b)
+{
+	_isUp = b;
+	
+	ChangeAnim();
+}
 
 void Flag::ChangeFlag()
 {
 	_isUp = !_isUp;
 
+	ChangeAnim();
+}
+
+void Flag::ChangeAnim()
+{
 	if (_isUp)
 		_anim->ChangeClip("Up");
-	else 
+	else
 		_anim->ChangeClip("Down");
 }
 

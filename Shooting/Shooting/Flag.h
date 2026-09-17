@@ -20,9 +20,13 @@ public :
 	Flag(VEC2 pos, E_FlagColorType col);
 
 	void ChangeFlag();
+	void SetFlag(bool b);
+
+	void ChangeAnim();
 
 	E_FlagColorType GetColor() const;
 	bool IsUp() const;
+
 
 
 };
