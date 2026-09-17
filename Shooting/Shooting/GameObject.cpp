@@ -9,12 +9,13 @@ void GameObject::Update(float delta)
 void GameObject::Render()
 {
 	if (!_anim) return;
+	
 	Texture* curTex = _anim->GetCurrentTexture();
-	if (curTex)
-	{
-		curTex->SetPos(_pos);
-		curTex->Print();
-	}
+
+	if (curTex == nullptr) return;
+	
+	curTex->SetPos(_pos);
+	curTex->Print();
 }
 
 void GameObject::SetPos(VEC2 pos) { _pos = pos; }

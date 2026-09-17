@@ -10,7 +10,16 @@ protected :
 	VEC2 _texturePos{0,0};
 
 public :
-	Texture(std::string path, VEC2 pos) : _filePath(path), _texturePos(pos) {}
+	Texture(std::string path, VEC2 pos) : _filePath(path), _texturePos(pos) 
+	{
+		printf("Texture CREATE : %p / %s\n",
+			this,
+			_filePath.c_str());
+	}
+	~Texture()
+	{
+		Release();
+	}
 	int Load();
 	int Release();
 	int Print();

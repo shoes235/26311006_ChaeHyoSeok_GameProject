@@ -4,6 +4,10 @@ int Texture::Load()
 {
 	_texture = g2_TextureLoad(_filePath.c_str());
 
+	printf("Texture Load : %s / handle = %d\n",
+		_filePath.c_str(),
+		_texture);
+
 	return 0;
 }
 
@@ -20,7 +24,10 @@ int Texture::Print()
 
 int Texture::Release()
 {
+	if (_texture == -1) return 0;
+
 	g2_TextureRelease(_texture);
+	_texture = -1;
 
 	return 0;
 }
