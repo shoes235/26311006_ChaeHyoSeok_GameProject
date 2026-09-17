@@ -17,3 +17,5 @@ void Timer::Update()
 
 	_lastTime = curTime;
 }
+
+float Timer::GetDeltaTime() const { return _deltaTime; }

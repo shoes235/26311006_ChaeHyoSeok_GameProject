@@ -33,7 +33,7 @@ int TitleScene::Init()
 
 int TitleScene::Update()
 {
-	_inputMgr.GetInput();
+	_inputMgr.GetKey();
 
 	//텍스쳐 랜덤 이동
 	Randomizer randSys;
