@@ -55,6 +55,12 @@
     <Filter Include="헤더 파일\_Common\Component\Animation">
       <UniqueIdentifier>{fe8c257c-0ef8-4088-9925-240bca1c7065}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Assets\Obj">
+      <UniqueIdentifier>{bd5ce9fb-4f26-4aec-994f-902c776a125d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Assets\Obj">
+      <UniqueIdentifier>{a55e8c34-41ef-4fa4-b9dc-32b871cc9478}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_main.cpp">
@@ -89,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>소스 파일\_Common\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>소스 파일\Assets\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>헤더 파일\_Common\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>헤더 파일\Assets\Obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
