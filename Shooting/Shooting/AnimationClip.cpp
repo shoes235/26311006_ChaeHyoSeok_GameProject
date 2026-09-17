@@ -3,9 +3,7 @@ void AnimationClip::AddTexture(Texture* tex) { _textures.push_back(tex); }
 
 Texture* AnimationClip::GetTexture(int idx)
 {
-	if (_textures.empty()) return nullptr;
-	if (idx < 0) idx = 0;
-	if (idx > _textures.size()) idx = (int)_textures.size() -1;
+	if (_textures.empty() || idx < 0 || idx >= static_cast<int>(_textures.size())) return nullptr;
 	return _textures[idx];
 }
 

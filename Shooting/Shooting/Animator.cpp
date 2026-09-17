@@ -41,5 +41,7 @@ void Animator::Play(float delta)
 Texture* Animator::GetCurrentTexture()
 {
 	if (!_curClip) return nullptr;
+
+	if (_curFrameIdx < 0 || _curFrameIdx >= _curClip->GetFrameCount()) return nullptr;
 	return _curClip->GetTexture(_curFrameIdx);
 }
