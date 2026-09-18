@@ -1,21 +1,22 @@
 #include "Animator.h"
 
-void Animator::AddClip(const string& name, AnimationClip* clip)
+void Animator::AddClip(const string& name,
+	std::unique_ptr<AnimationClip> clip)
 {
-	_clips[name] = clip;
+	AnimationClip* raw = clip.get();
+
+	_clips[name] = std::move(clip);
+
 	if (_curClip == nullptr)
-		_curClip = clip;
+		_curClip = raw;
 }
 void Animator::ChangeClip(const string& name)
 {
 	auto it = _clips.find(name);
-	if (it != _clips.end()
-		&& _curClip != it->second)
-	{
-		_curClip = it->second;
-		_curFrameIdx = 0;
-		_accumulatedTime = 0.0f;
-	}
+	
+	if (it == _clips.end())
+		return;
+	_curClip = it->second.get();
 }
 void Animator::Play(float delta)
 {

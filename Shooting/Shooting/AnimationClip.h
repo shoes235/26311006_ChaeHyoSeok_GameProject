@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+#include <utility>
 #include <vector>
 using std::vector;
 
@@ -12,20 +14,15 @@ class AnimationClip
 {
 private:
 	string _clipName;
-	vector<Texture*> _textures;
+	vector<std::unique_ptr<Texture>> _textures;
 	float _frameDuration;
 	bool _isLoop;
 public:
 	AnimationClip(string name, float frameDur = 0.1f, bool loop = true)
 		: _clipName(name), _frameDuration(frameDur), _isLoop(loop) {}
-	~AnimationClip()
-	{
-		//for (auto& t : _textures)
-		//	delete t;
-		_textures.clear();
-	}
+	~AnimationClip() = default;
 
-	void AddTexture(Texture* tex);
+	void AddTexture(std::unique_ptr<Texture>);
 	Texture* GetTexture(int idx);
 
 	int GetFrameCount() const;

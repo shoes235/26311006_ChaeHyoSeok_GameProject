@@ -5,20 +5,22 @@ ProgressBar::ProgressBar(VEC2 pos)
 {
 	string prefix = "rsc/imgs/ProgressBar/Bar_";
 
-	vector<Texture*> texes(5);
+	auto clip = std::make_unique<AnimationClip>(
+		"Progress", 0.1f, false);
 
-	for(int i = 0; i < texes.size(); i++)
+	for(int i = 0; i < 5; i++)
 	{
-		texes[i] = new Texture(prefix + std::to_string(i) + ".png", pos);
-		texes[i]->Load();
+		auto tex = std::make_unique<Texture>
+			(
+				prefix + std::to_string(i) + ".png", pos
+			);
+		tex->Load();
+
+		clip->AddTexture(std::move(tex));
 	}
+	_progressClip = clip.get();
 
-	_progressClip = new AnimationClip("Progress", 0.1f, false);
-
-	for (auto& tex : texes)
-		_progressClip->AddTexture(tex);
-
-	_anim->AddClip("Progress", _progressClip);
+	_anim->AddClip("Progress", std::move(clip));
 	_anim->ChangeClip("Progress");
 }
 

@@ -8,19 +8,21 @@ Flag::Flag(VEC2 pos, E_FlagColorType col)
 		: "rsc/imgs/Flag/White/";
 
 
-	Texture* upTex = new Texture(prefix + "Up.png", pos);
+	auto upTex = std::make_unique<Texture>(prefix + "Up.png", pos);
 	upTex->Load();
-	AnimationClip* upClip = new AnimationClip("Up", 0.1f, false);
-	upClip->AddTexture(upTex);
+	
+	auto upClip = std::make_unique<AnimationClip>("Up", 0.1f, false);
+	upClip->AddTexture(std::move(upTex));
 
 
-	Texture* downTex = new Texture(prefix + "Down.png", pos);
+	auto downTex = std::make_unique<Texture>(prefix + "Down.png", pos);
 	downTex->Load();
-	AnimationClip* downClip = new AnimationClip("Down", 0.1f, false);
-	downClip->AddTexture(downTex);
 
-	_anim->AddClip("Up", upClip);
-	_anim->AddClip("Down", downClip);
+	auto downClip = std::make_unique<AnimationClip>("Down", 0.1f, false);
+	downClip->AddTexture(std::move(downTex));
+
+	_anim->AddClip("Up", std::move(upClip));
+	_anim->AddClip("Down", std::move(downClip));
 
 	_anim->ChangeClip("Down");
 	_isUp = false;

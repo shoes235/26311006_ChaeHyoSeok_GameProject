@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 #include <unordered_map>
 using std::unordered_map;
 
@@ -11,7 +11,7 @@ using std::string;
 class Animator
 {
 private:
-	unordered_map<string,AnimationClip*> _clips;
+	unordered_map<string,std::unique_ptr<AnimationClip>> _clips;
 	AnimationClip* _curClip = nullptr;
 
 	float _accumulatedTime = 0.0f;
@@ -19,15 +19,10 @@ private:
 
 public:
 	Animator() = default;
-	~Animator()
-	{
-		printf("Animator DELETE : %p\n", this);
-		for (auto pair : _clips)
-			delete pair.second;
-		_clips.clear();
-	}
+	~Animator() = default;
 
-	void AddClip(const string& name, AnimationClip* clip);
+	void AddClip(const string& name,
+		std::unique_ptr<AnimationClip> clip);
 	void ChangeClip(const string& name);
 
 	void Play(float delta);

@@ -4,8 +4,6 @@ InputManager::~InputManager()
 	_bindings.clear();
 }
 
-
-
 int InputManager::RegisterAction(const vector<unsigned char>& keys, function<void()> callback)
 {
 	_bindings.push_back({keys,callback});

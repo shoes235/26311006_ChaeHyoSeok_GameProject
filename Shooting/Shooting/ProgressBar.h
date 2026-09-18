@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-
+#include <memory>
 #include <string>
 using std::string;
 
