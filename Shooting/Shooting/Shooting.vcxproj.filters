@@ -105,6 +105,9 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>소스 파일\Assets\Obj</Filter>
     </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E_SceneType.h">
@@ -147,6 +150,9 @@
       <Filter>헤더 파일\_Common\Sys</Filter>
     </ClInclude>
     <ClInclude Include="ProgressBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
