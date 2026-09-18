@@ -4,6 +4,11 @@ int InGameScene::Init()
 {
 	SetWindow(false);
 
+	//SetData
+	GameData::g_score = 0.0f;
+	
+	
+	
 	//Audio
 	_bgm = g2_SoundLoad("rsc/audio/Glorious Morning.mp3");
 	g2_SoundPlay(_bgm, true);
@@ -13,9 +18,9 @@ int InGameScene::Init()
 	_gameOverSFX = g2_SoundLoad("rsc/audio/SFX/GameOver.mp3");
 
 	//font
-	_font = g2_FontCreate("±¼¸²", 24, 0);
-	_commFont = g2_FontCreate("±¼¸²", 126, 0);
-
+	_fonts.push_back(g2_FontCreate("±¼¸²", 24, 0));
+	_fonts.push_back(g2_FontCreate("±¼¸²", 48, 0));
+	_fonts.push_back(g2_FontCreate("±¼¸²", 126, 0));
 	
 	//obj instance
 	_blueFlag = new Flag(VEC2{ 500,350 }, E_FlagColorType::BLUE);
@@ -57,8 +62,6 @@ int InGameScene::Init()
 	//Timer
 	_timer.Init();
 
-	_remainGameTime = _gameTime;
-
 	NextCommand();
 
 	return 0;
@@ -79,7 +82,7 @@ int InGameScene::Render()
 		//comm
 		g2_FontDrawText
 		(
-			_commFont,
+			_fonts[2],
 			{ 400,150,1280,300 },
 			0xFF000000,
 			_commText.c_str());
@@ -88,34 +91,35 @@ int InGameScene::Render()
 	//Time
 	g2_FontDrawText
 	(
-		_font,
+		_fonts[0],
 		{ 550,50,890,90 },
 		0xFFFFFFFF,
 		"Time Left : %.1f", _remainCommandTime
-	);
-
-	g2_FontDrawText
-	(
-		_font,
-		{ 20,20,250,60 },
-		0xFF000000,
-		"Game Time : %.1f", _remainGameTime
 	);
 
 	//Score
 
 	g2_FontDrawText
 	(
-		_font,
-		{ 20,60,250,100 },
+		_fonts[2],
+		{ 1050,40,1260,200 },
 		0xFF000000,
-		"Score : %1d", _score
+		"%d", (int)_score
 	);
+
+	g2_FontDrawText
+	(
+		_fonts[1],
+		{ 1080,200,1260,400 },
+		0xFF000000,
+		"X %.1f", _mult
+	);
+
 
 	//Life
 	g2_FontDrawText
 	(
-		_font,
+		_fonts[0],
 		{ 20, 100, 300, 200 },
 		0xFF000000,
 		"LIFE : %1d",_life
@@ -123,7 +127,7 @@ int InGameScene::Render()
 
 	g2_FontDrawText
 	(
-		_font,
+		_fonts[0],
 		{ 20, 650,500, 800},
 		0xFF000000,
 		"ESC : Á¾·á / <- : Ã»±â / -> : ¹é±â"
@@ -137,7 +141,7 @@ int InGameScene::Render()
 
 		g2_FontDrawText
 		(
-			_commFont,
+			_fonts[2],
 			{ 300, 100, 1200, 220 },
 			0xFFFFFFFF,
 			"GAME OVER"
@@ -160,7 +164,7 @@ int InGameScene::Update()
 
 	float delta = _timer.GetDeltaTime();
 
-	_remainGameTime -= delta;
+	_gameTime += delta;
 	_remainCommandTime -= delta;
 
 	//Input
@@ -175,8 +179,13 @@ int InGameScene::Update()
 	{
 		if (CheckAnswer())
 		{
+			_combo++;
+			_mult = 1.0f + (_combo / 5) * .5f;
+			_score += _mult;
+
+
+			//Sound
 			g2_SoundPlay(_correctSFX, false);
-			_score++;
 
 			//bg
 			SetWindowColor(0xFF00FF00);
@@ -186,8 +195,11 @@ int InGameScene::Update()
 		}
 		else
 		{
-			g2_SoundPlay(_wrongSFX, false);
+			_combo = 0;
+			_mult = 1.0f;
 			_life--;
+
+			g2_SoundPlay(_wrongSFX, false);
 
 			//bg
 			SetWindowColor(0xFFFF0000);
@@ -213,20 +225,15 @@ int InGameScene::Update()
 			SetWindowColor(0xFFFFFFFF);
 		}
 	}
-
-
-
-	if (_remainGameTime <= 0.0f)
-	{
-		_remainGameTime = 0.0f;
-		_gameOver = true;
-	}
 	
 	return 0;
 }
 
 int InGameScene::Destroy()
 {
+	GameData::g_score = _score;
+
+
 	for (auto* i : _objs)
 		delete i;
 	_objs.clear();
@@ -256,12 +263,10 @@ void InGameScene::NextCommand()
 
 float InGameScene::GetCommandLimitTime()
 {
-	float progress = 1.0f - (_remainGameTime / _gameTime);
+	float time = 5.0f - (_gameTime * 0.01f);
 
-	float time = 5.0f - progress * 4.0f;
-
-	if (time < 1.0f)
-		time = 1.0f;
+	if (time < _minComTime)
+		time = _minComTime;
 
 	return time;
 }

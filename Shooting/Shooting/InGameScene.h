@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Randomizer.h"
 #include "ProgressBar.h"
+#include "GameData.h"
 
 #include <string>
 using std::string;
@@ -21,9 +22,6 @@ enum class E_Command
 	WHITE_DOWN
 };
 
-
-
-
 class InGameScene : public IScene
 {
 private:
@@ -34,8 +32,7 @@ private:
 	Flag* _whiteFlag = nullptr;
 
 	//font
-	int _font = 0;
-	int _commFont = 0;
+	vector<int> _fonts;
 
 	//input
 	InputManager _inputMgr;
@@ -45,11 +42,12 @@ private:
 	//Timer
 	Timer _timer;
 
-	float _gameTime = 300.0f;
-	float _remainGameTime = 0.0f;
+	float _gameTime = .0f;
 
+	//com time
 	float _commandTime = 5.0f;
 	float _remainCommandTime = 0.0f;
+	const float _minComTime = .5f;
 
 	//bg
 	float _bgColTime = 1.0f;
@@ -63,7 +61,10 @@ private:
 	string _commText = "";
 
 	//Score
-	int _score = 0;
+	float _score = .0f;
+	int _combo = 0;
+	float _mult = 1.0f;
+
 	int _life = 5;
 
 	bool _gameOver = false;
