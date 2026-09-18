@@ -9,6 +9,11 @@ class SceneManager
 private:
 	E_SceneType _curSceneType;
 	IScene* _curScenePtr = nullptr;
+
+	IScene* _nextScenePtr = nullptr;
+	E_SceneType _nextSceneType;
+
+	bool _changeRequested = false;
 public :
 	const E_SceneType& g_curSceneType;
 
@@ -17,6 +22,7 @@ public :
 	void InitEngine();
 	void Run();
 	void ChangeScene(IScene* nextScene, E_SceneType targetType);
+	void ApplySceneChange();
 
 	IScene* GetCurrentScene() const { return _curScenePtr; }
 };

@@ -19,6 +19,8 @@ public :
 			: keys(k),callback(cb) { }
 	};
 
+	~InputManager();
+
 	int RegisterAction(const vector<unsigned char>& keys,function<void()> callback);
 	int GetKey();
 	int GetKeyDown();

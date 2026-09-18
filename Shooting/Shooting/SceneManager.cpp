@@ -2,10 +2,15 @@
 
 int FrameMove()
 {
-	if (g_SceneMgr.GetCurrentScene() != nullptr)
+	IScene* scene = g_SceneMgr.GetCurrentScene();
+
+	if (scene != nullptr)
 	{
-		g_SceneMgr.GetCurrentScene()->Update();
+		scene->Update();
 	}
+
+	g_SceneMgr.ApplySceneChange();
+
 	return 0;
 }
 
@@ -44,27 +49,35 @@ void SceneManager::Run()
 
 void SceneManager::ChangeScene(IScene* nextScene, E_SceneType targetType)
 {
-	if (nextScene == nullptr)
-	{
-		std::cout << "전환될씬 null 임다 \n";
-		return;
-	}
 
-	if (nextScene->CheckAndProcess(targetType) == false)
+	if (_changeRequested)
 	{
 		delete nextScene;
 		return;
 	}
 
-	if (_curScenePtr != nullptr)
-	{
-		_curScenePtr->Destroy();
-		delete _curScenePtr;
-	}
+	_nextScenePtr = nextScene;
+	_nextSceneType = targetType;
+	_changeRequested = true;
+}
 
-	_curScenePtr = nextScene;
+void SceneManager::ApplySceneChange()
+{
+    if (!_changeRequested)
+        return;
+
+    if (_curScenePtr != nullptr)
+    {
+        _curScenePtr->Destroy();
+        delete _curScenePtr;
+        _curScenePtr = nullptr;
+    }
+
+    _curScenePtr = _nextScenePtr;
+    _nextScenePtr = nullptr;
+
+    _curSceneType = _nextSceneType;
+    _changeRequested = false;
 
 	_curScenePtr->Init();
-
-	_curSceneType = targetType;
 }

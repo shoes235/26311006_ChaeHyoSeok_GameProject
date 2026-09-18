@@ -18,7 +18,7 @@ public:
 	virtual ~GameObject()
 	{
 		printf(
-			"GameObject CREATE : %p / Animator = %p\n",
+			"GameObject Delete : %p / Animator = %p\n",
 			this,
 			_anim
 		);

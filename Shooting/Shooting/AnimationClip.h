@@ -20,11 +20,8 @@ public:
 		: _clipName(name), _frameDuration(frameDur), _isLoop(loop) {}
 	~AnimationClip()
 	{
-		for (auto& t : _textures)
-		{
-			t->Release();
-			delete t;
-		}
+		//for (auto& t : _textures)
+		//	delete t;
 		_textures.clear();
 	}
 

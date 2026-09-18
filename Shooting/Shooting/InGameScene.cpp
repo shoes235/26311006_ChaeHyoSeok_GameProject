@@ -298,6 +298,10 @@ bool InGameScene::CheckAnswer()
 
 void InGameScene::GiveCommand()
 {
+
+	//Randomizer randSys;
+	//int comm = randSys.Rand(0, 1);
+
 	switch (_command)
 	{
 	case E_Command::BLUE_UP:
