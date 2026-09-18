@@ -7,8 +7,6 @@ int InGameScene::Init()
 	//SetData
 	GameData::g_score = 0.0f;
 	
-	
-	
 	//Audio
 	_bgm = g2_SoundLoad("rsc/audio/Glorious Morning.mp3");
 	g2_SoundPlay(_bgm, true);
@@ -128,7 +126,7 @@ int InGameScene::Render()
 	g2_FontDrawText
 	(
 		_fonts[0],
-		{ 20, 650,500, 800},
+		{ 20, 650,500,700},
 		0xFF000000,
 		"ESC : 종료 / <- : 청기 / -> : 백기"
 	);
@@ -137,8 +135,6 @@ int InGameScene::Render()
 	//종료
 	if (_gameOver)
 	{
-		g2_SoundPlay(_gameOverSFX, false);
-
 		g2_FontDrawText
 		(
 			_fonts[2],
@@ -151,6 +147,7 @@ int InGameScene::Render()
 
 	}
 
+	return 0;
 }
 int InGameScene::Update()
 {
@@ -226,6 +223,12 @@ int InGameScene::Update()
 		}
 	}
 	
+	if (_gameOver)
+	{
+		g2_SoundPlay(_gameOverSFX, false);
+		return 0;
+	}
+
 	return 0;
 }
 
@@ -237,6 +240,11 @@ int InGameScene::Destroy()
 	for (auto* i : _objs)
 		delete i;
 	_objs.clear();
+	
+	_blueFlag = nullptr;
+	_whiteFlag = nullptr;
+	_bar = nullptr;
+
 
 	g2_SoundRelease(_bgm);
 	g2_SoundRelease(_correctSFX);

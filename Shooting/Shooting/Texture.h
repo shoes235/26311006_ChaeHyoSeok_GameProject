@@ -18,6 +18,7 @@ public :
 	}
 	~Texture()
 	{
+		printf("Texture DELETE : %p\n", this);
 		Release();
 	}
 	int Load();

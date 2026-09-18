@@ -11,6 +11,10 @@ void GameObject::Render()
 	if (!_anim) return;
 	
 	Texture* curTex = _anim->GetCurrentTexture();
+	/*printf("GameObject = %p / Animator = %p / Texture = %p\n",
+		this,
+		_anim,
+		curTex);*/
 
 	if (curTex == nullptr) return;
 	

@@ -21,6 +21,7 @@ public:
 	Animator() = default;
 	~Animator()
 	{
+		printf("Animator DELETE : %p\n", this);
 		for (auto pair : _clips)
 			delete pair.second;
 		_clips.clear();
