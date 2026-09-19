@@ -1,6 +1,7 @@
 #pragma once
 #include "E_SceneType.h"
 #include "IScene.h"
+#include "DeltaTimer.h"
 
 class IScene;
 

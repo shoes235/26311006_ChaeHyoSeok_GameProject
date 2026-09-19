@@ -7,9 +7,6 @@ enum class E_FlagColorType
 	BLUE
 };
 
-
-
-
 class Flag : public GameObject
 {
 private:
@@ -26,8 +23,5 @@ public :
 
 	E_FlagColorType GetColor() const;
 	bool IsUp() const;
-
-
-
 };
 

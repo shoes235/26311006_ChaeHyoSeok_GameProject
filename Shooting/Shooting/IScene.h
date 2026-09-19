@@ -25,20 +25,21 @@ public:
 	virtual ~IScene() {}
 
 	//Windows
-	int SetWindow(bool setWinPos = true);
+	void SetWindow(bool setWinPos = true);
 	void SetWindowColor(unsigned int col);
+	void SetFullScreen();
 
 
 	//Birth
-	virtual int Init();
-	virtual int InitSDK();
+	virtual void Init();
+	virtual void InitSDK();
 
 	//Life-Cycle
-	virtual int Update();
-	virtual int Render();
+	virtual void Update();
+	virtual void Render();
 
 	//Death
-	virtual int Destroy();
+	virtual void Destroy();
 
 	bool CheckAndProcess(E_SceneType curType);
 };

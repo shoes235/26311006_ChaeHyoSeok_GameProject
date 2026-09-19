@@ -2,6 +2,8 @@
 
 int FrameMove()
 {
+	g_deltaTimer.Update();
+
 	IScene* scene = g_SceneMgr.GetCurrentScene();
 
 	if (scene != nullptr)

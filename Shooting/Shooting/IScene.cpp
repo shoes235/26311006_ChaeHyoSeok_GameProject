@@ -1,6 +1,6 @@
 #include "IScene.h"
 
-int IScene::SetWindow(bool setWinPos)
+void IScene::SetWindow(bool setWinPos)
 {
 	HWND hwnd = GetActiveWindow();
 
@@ -29,7 +29,7 @@ int IScene::SetWindow(bool setWinPos)
 	g2_SetWindowTitle(_winName.c_str());
 	g2_SetClearColor(_winColor);
 
-	return 0;
+	return;
 }
 
 void IScene::SetWindowColor(unsigned int col)
@@ -37,6 +37,49 @@ void IScene::SetWindowColor(unsigned int col)
 	_winColor = col;
 	g2_SetClearColor(_winColor);
 }
+
+void IScene::SetFullScreen()
+{
+	HWND hwnd = GetActiveWindow();
+
+	if (hwnd == nullptr)
+		return;
+
+	// 현재 모니터
+	HMONITOR hMonitor = MonitorFromWindow
+	(
+		hwnd,
+		MONITOR_DEFAULTTONEAREST
+	);
+
+	MONITORINFO mi = {};
+	mi.cbSize = sizeof(MONITORINFO);
+
+	GetMonitorInfo(hMonitor, &mi);
+
+	// 창 테두리 제거
+	SetWindowLong
+	(
+		hwnd,
+		GWL_STYLE,
+		WS_POPUP
+	);
+
+	SetWindowPos
+	(
+		hwnd,
+		HWND_TOP,
+		mi.rcMonitor.left,
+		mi.rcMonitor.top,
+		mi.rcMonitor.right - mi.rcMonitor.left,
+		mi.rcMonitor.bottom - mi.rcMonitor.top,
+		SWP_FRAMECHANGED | SWP_SHOWWINDOW
+	);
+
+	g2_SetWindowTitle(_winName.c_str());
+	g2_SetClearColor(_winColor);
+}
+
 
 
 bool IScene::CheckAndProcess(E_SceneType curType)
@@ -50,29 +93,29 @@ bool IScene::CheckAndProcess(E_SceneType curType)
 	return true;
 }
 
-int IScene::Init()
+void IScene::Init()
 {
 	SetWindow();
 
-	return 0;
+	return;
 }
 
-int IScene::InitSDK()
+void IScene::InitSDK()
 {
-	return 0;
+	return;
 }
 
 //Life-Cycle
-int IScene::Update()
+void IScene::Update()
 {
-	return 0;
+	return ;
 }
-int IScene::Render()
+void IScene::Render()
 {
-	return 0;
+	return ;
 }
 
-int IScene::Destroy()
+void IScene::Destroy()
 {
-	return 0;
+	return ;
 }

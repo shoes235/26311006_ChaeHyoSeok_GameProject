@@ -44,10 +44,10 @@ public :
 		_winColor = 0x000000; // °ËÀº»ö
 	}
 public:
-	int Init() override;
-	int Render() override;
-	int Update() override;
-	int Destroy() override;
+	void Init() override;
+	void Render() override;
+	void Update() override;
+	void Destroy() override;
 
 };
 

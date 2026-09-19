@@ -1,7 +1,7 @@
 #include "TitleScene.h"
 
 
-int TitleScene::Init()
+void TitleScene::Init()
 {
 	IScene::Init();
 
@@ -39,10 +39,10 @@ int TitleScene::Init()
 
 	_background->Load();
 
-	return 0;
+	return;
 }
 
-int TitleScene::Update()
+void TitleScene::Update()
 {
 	_inputMgr.GetKey();
 
@@ -114,10 +114,10 @@ int TitleScene::Update()
 	}
 
 
-	return 0;
+	return;
 }
 
-int TitleScene::Render()
+void TitleScene::Render()
 {
 	IScene::Render();
 
@@ -132,10 +132,10 @@ int TitleScene::Render()
 	if(_showText)
 		g2_FontDrawText(nFont, { 380,500,1000,800 }, _color, "SPACE 를 눌러 게임시작");
 
-	return 0;
+	return;
 }
 
-int TitleScene::Destroy()
+void TitleScene::Destroy()
 {
 	delete _background;
 	_background = nullptr;
@@ -151,5 +151,5 @@ int TitleScene::Destroy()
 	g2_SoundRelease(_bgm);
 	_bgm = 0;
 
-	return 0;
+	return;
 }
