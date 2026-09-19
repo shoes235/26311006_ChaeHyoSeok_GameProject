@@ -18,8 +18,9 @@ void JumpScareScene::Update()
 
 	if (_timer >= JUMP_SCARE_TIME)
 	{
+		if(!_trigger)
+			g2_SoundPlay(_sfx,false);
 		_trigger = true;
-		g2_SoundPlay(_sfx);
 
 	}
 
