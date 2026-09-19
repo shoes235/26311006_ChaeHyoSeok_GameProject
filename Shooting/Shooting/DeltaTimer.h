@@ -1,17 +1,19 @@
 #pragma once
 #include <glc2d.h>
-class Timer
+class DeltaTimer
 {
 private:
 	long long _lastTime;
 	float _deltaTime;
 public:
-	Timer();
-	~Timer();
+	DeltaTimer();
+	~DeltaTimer();
 
 	void Init();
 	void Update();
 
 	float GetDeltaTime() const;
+
 };
 
+extern DeltaTimer g_deltaTimer;
