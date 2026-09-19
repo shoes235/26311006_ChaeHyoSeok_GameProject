@@ -1,7 +1,7 @@
 #pragma once
 #include <glc2d.h>
 #include "IScene.h"
-#include "InGameScene.h"
+#include "HowToPlayScene.h"
 #include "Texture.h"
 #include "Randomizer.h"
 #include "InputManager.h"
@@ -16,6 +16,7 @@ private:
 
 	vector<Texture*> _textures;
 	float _texTimer = 0.0f;
+	const float TEXTURE_WAIT_TIME = 3.0f;
 
 	Texture* _background = new Texture("rsc/imgs/MainMenu.png", VEC2(0, 0));
 

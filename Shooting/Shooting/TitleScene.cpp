@@ -19,15 +19,15 @@ void TitleScene::Init()
 		{VK_SPACE},
 		[=]() 
 		{
-			InGameScene* nextScene = new InGameScene();
-			g_SceneMgr.ChangeScene(nextScene, E_SceneType::IN_GAME);
+			HowToPlayScene* nextScene = new HowToPlayScene();
+			g_SceneMgr.ChangeScene(nextScene, E_SceneType::HOW_2_PLAY);
 		}
 	);
 
 	VEC2 zero = { 0,0 };
 
 	string prefix = "rsc/imgs/cats/";
-	vector<Texture*>texes(6);
+	vector<Texture*>texes(10);
 
 	for (int i = 0; i < texes.size(); ++i)
 	{
@@ -44,7 +44,7 @@ void TitleScene::Init()
 
 void TitleScene::Update()
 {
-	_inputMgr.GetKey();
+	_inputMgr.GetKeyDown();
 
 	//텍스쳐 랜덤 이동
 	Randomizer randSys;
@@ -100,7 +100,7 @@ void TitleScene::Update()
 	}
 
 	_texTimer += 0.016f;
-	if (_texTimer >= 2.0f)
+	if (_texTimer >= TEXTURE_WAIT_TIME)
 	{
 		_texTimer = 0.0f;
 
