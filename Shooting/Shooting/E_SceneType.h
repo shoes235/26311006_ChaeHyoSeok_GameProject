@@ -2,6 +2,8 @@
 enum class E_SceneType : unsigned char
 {
 	TITLE,
+	HOW_2_PLAY,
 	IN_GAME,
-	GAME_OVER
+	JUMP_SCARE,
+	RESULT
 };
