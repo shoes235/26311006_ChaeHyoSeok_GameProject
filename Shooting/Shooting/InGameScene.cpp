@@ -1,6 +1,6 @@
 #include "InGameScene.h"
 
-int InGameScene::Init()
+void InGameScene::Init()
 {
 	SetWindow(false);
 
@@ -21,14 +21,23 @@ int InGameScene::Init()
 	_fonts.push_back(g2_FontCreate("굴림", 126, 0));
 	
 	//obj instance
-	_blueFlag = new Flag(VEC2{ 500,350 }, E_FlagColorType::BLUE);
-	_whiteFlag = new Flag(VEC2{ 700,350 }, E_FlagColorType::WHITE);
+	_cat = new Cat(VEC2{ (1280 / 2 ) - 128,350 });
+
+	_blueFlag = new Flag(VEC2{ 440,470 }, E_FlagColorType::BLUE);
+	_whiteFlag = new Flag(VEC2{ 720,470 }, E_FlagColorType::WHITE);
 
 	_bar = new ProgressBar(VEC2{ 370,15 });
 
+	_objs.push_back(_cat);
 	_objs.push_back(_blueFlag);
 	_objs.push_back(_whiteFlag);
 	_objs.push_back(_bar);
+
+	_heartFull = new Texture("rsc/imgs/Heart/Full.png",{0, 0});
+	_heartFull->Load();
+	_heartBlank = new Texture("rsc/imgs/Heart/Blank.png",{0, 0});
+	_heartBlank->Load();
+
 
 	//Register Input
 	_inputMgr.RegisterAction
@@ -57,14 +66,11 @@ int InGameScene::Init()
 		}
 	);
 
-	//Timer
-	_timer.Init();
-
 	NextCommand();
 
-	return 0;
+	return;
 }
-int InGameScene::Render()
+void InGameScene::Render()
 {
 	IScene::Render();
 	
@@ -72,7 +78,6 @@ int InGameScene::Render()
 	for (auto* i : _objs)
 		i->Render();
 
-	GiveCommand();
 
 	//Font
 	if (!_gameOver)
@@ -81,7 +86,7 @@ int InGameScene::Render()
 		g2_FontDrawText
 		(
 			_fonts[2],
-			{ 400,150,1280,300 },
+			{ 250,150,1280,300 },
 			0xFF000000,
 			_commText.c_str());
 	}
@@ -115,13 +120,13 @@ int InGameScene::Render()
 
 
 	//Life
-	g2_FontDrawText
-	(
-		_fonts[0],
-		{ 20, 100, 300, 200 },
-		0xFF000000,
-		"LIFE : %1d",_life
-	);
+	for (int i = 0; i < MAX_LIFE; ++i)
+	{
+		Texture* heart = (i < _life) ? _heartFull : _heartBlank;
+
+		heart->SetPos({ 50.0f + i * 50.0f,40.0f });
+		heart->Print();
+	}
 
 	g2_FontDrawText
 	(
@@ -143,23 +148,35 @@ int InGameScene::Render()
 			"GAME OVER"
 		);
 
-		return 0;
+		return;
 
 	}
 
-	return 0;
+	return;
 }
-int InGameScene::Update()
+void InGameScene::Update()
 {
 	IScene::Update();
-	
+	float delta = g_deltaTimer.GetDeltaTime();
+
+
 	if (_gameOver)
-		return 0;
+	{
+		g2_SoundPlay(_gameOverSFX, false);
+
+		_gameOverTimer += delta;
+
+		if (_gameOverTimer >= GAME_OVER_WAIT_TIME)
+		{
+			JumpScareScene* nextScene = new JumpScareScene();
+			g_SceneMgr.ChangeScene(nextScene, E_SceneType::JUMP_SCARE);
+		}
+		//g_SceneMgr.ChangeScene();
+		return;
+	}
 
 	//Times
-	_timer.Update();
 
-	float delta = _timer.GetDeltaTime();
 
 	_gameTime += delta;
 	_remainCommandTime -= delta;
@@ -180,6 +197,9 @@ int InGameScene::Update()
 			_mult = 1.0f + (_combo / 5) * .5f;
 			_score += _mult;
 
+			if (!(_combo % 10)
+				&& _life < MAX_LIFE)
+				_life++;
 
 			//Sound
 			g2_SoundPlay(_correctSFX, false);
@@ -188,6 +208,9 @@ int InGameScene::Update()
 			SetWindowColor(0xFF00FF00);
 
 			_bgRemainColTime = _bgColTime;
+
+			//cat
+			_cat->SetState(E_StateType::CORRECT);
 
 		}
 		else
@@ -202,11 +225,14 @@ int InGameScene::Update()
 			SetWindowColor(0xFFFF0000);
 
 			_bgRemainColTime = _bgColTime;
+
+			//cat
+			_cat->SetState(E_StateType::WRONG);
 		}
 		if (_life <= 0)
 		{
 			_gameOver = true;
-			return 0;
+			return;
 		}
 
 		NextCommand();
@@ -219,20 +245,19 @@ int InGameScene::Update()
 		if (_bgRemainColTime <= 0.0f)
 		{
 			_bgRemainColTime = 0.0f;
-			SetWindowColor(0xFFFFFFFF);
+			SetWindowColor(_bgDefCol);
+
+			//cat
+			_cat->SetState(E_StateType::IDLE);
 		}
 	}
 	
-	if (_gameOver)
-	{
-		g2_SoundPlay(_gameOverSFX, false);
-		return 0;
-	}
 
-	return 0;
+
+	return;
 }
 
-int InGameScene::Destroy()
+void InGameScene::Destroy()
 {
 	GameData::g_score = _score;
 
@@ -250,7 +275,7 @@ int InGameScene::Destroy()
 	g2_SoundRelease(_correctSFX);
 	g2_SoundRelease(_wrongSFX);
 
-	return 0;
+	return;
 }
 
 void InGameScene::NextCommand()
@@ -267,6 +292,8 @@ void InGameScene::NextCommand()
 	_remainCommandTime = _commandTime;
 
 	_bar->SetTime(_commandTime);
+
+	GiveCommand();
 }
 
 float InGameScene::GetCommandLimitTime()
@@ -299,22 +326,8 @@ bool InGameScene::CheckAnswer()
 void InGameScene::GiveCommand()
 {
 
-	//Randomizer randSys;
-	//int comm = randSys.Rand(0, 1);
+	Randomizer randSys;
+	int rand = randSys.Rand(0, 1);
 
-	switch (_command)
-	{
-	case E_Command::BLUE_UP:
-		_commText = "청기 올려";
-		break;
-	case E_Command::BLUE_DOWN:
-		_commText = "청기 내려";
-		break;
-	case E_Command::WHITE_UP:
-		_commText = "백기 올려";
-		break;
-	case E_Command::WHITE_DOWN:
-		_commText = "백기 내려";
-		break;
-	}
+	_commText = COMMAND_TEXT_LIST[static_cast<int>(_command)][rand];
 }
