@@ -102,9 +102,6 @@
     <ClCompile Include="GameData.cpp">
       <Filter>소스 파일\_Common</Filter>
     </ClCompile>
-    <ClCompile Include="Cat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DeltaTimer.cpp">
       <Filter>소스 파일\_Common\Sys</Filter>
     </ClCompile>
@@ -116,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="HowToPlayScene.cpp">
       <Filter>소스 파일\Assets\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Cat.cpp">
+      <Filter>소스 파일\Assets\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,23 +155,23 @@
     <ClInclude Include="Flag.h">
       <Filter>헤더 파일\Assets\Obj</Filter>
     </ClInclude>
-    <ClInclude Include="ProgressBar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="GameData.h">
       <Filter>헤더 파일\_Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Cat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpScareScene.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DeltaTimer.h">
       <Filter>헤더 파일\_Common\Sys</Filter>
     </ClInclude>
+    <ClInclude Include="JumpScareScene.h">
+      <Filter>헤더 파일\Assets\Levels</Filter>
+    </ClInclude>
     <ClInclude Include="HowToPlayScene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Assets\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>헤더 파일\Assets\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Cat.h">
+      <Filter>헤더 파일\Assets\Obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
