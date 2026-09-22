@@ -27,7 +27,8 @@ void JumpScareScene::Update()
 	if (_timer >=
 		JUMP_SCARE_TIME + SCENE_CHANGE_TIME)
 	{
-		//g_SceneMgr.ChangeScene()
+		ResultScene* nextScene = new ResultScene();
+		g_SceneMgr.ChangeScene(nextScene, E_SceneType::RESULT);
 	}
 
 		return;
@@ -39,4 +40,9 @@ void JumpScareScene::Render()
 		_img->Print();
 
 	return;
+}
+
+void JumpScareScene::Destroy()
+{
+	g2_SoundRelease(_sfx);
 }

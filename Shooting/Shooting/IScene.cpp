@@ -7,6 +7,7 @@ void IScene::SetWindow(bool setWinPos)
 	if (hwnd != nullptr)
 	{
 		int x = _winPos.x; int y = _winPos.y;
+
 		if (!setWinPos)
 		{
 			RECT rect;
@@ -15,14 +16,22 @@ void IScene::SetWindow(bool setWinPos)
 			y = rect.top;
 		}
 
-		MoveWindow
+		SetWindowLong
 		(
 			hwnd,
+			GWL_STYLE,
+			WS_OVERLAPPEDWINDOW
+		);
+
+		SetWindowPos
+		(
+			hwnd,
+			nullptr,
 			x,
 			y,
 			_winSize.cx,
 			_winSize.cy,
-			TRUE
+			SWP_FRAMECHANGED | SWP_SHOWWINDOW
 		);
 	}
 
