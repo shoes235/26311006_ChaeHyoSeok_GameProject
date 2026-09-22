@@ -49,7 +49,6 @@ void ResultScene::Update()
 
 	case E_ResultState::SHOW_RANK:
 	{
-		std::cout << "SHOW_RANK" << std::endl;
 
 		if (static_cast<int>(_rank) < static_cast<int>(E_Rank::C))
 			g2_SoundPlay(_fartSFX, false);
