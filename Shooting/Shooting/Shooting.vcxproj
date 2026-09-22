@@ -137,6 +137,7 @@
     <ClCompile Include="JumpScareScene.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="Randomizer.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="DeltaTimer.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="JumpScareScene.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="Randomizer.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="DeltaTimer.h" />

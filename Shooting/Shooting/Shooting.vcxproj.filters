@@ -117,6 +117,9 @@
     <ClCompile Include="Cat.cpp">
       <Filter>소스 파일\Assets\Obj</Filter>
     </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>소스 파일\Assets\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E_SceneType.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="Cat.h">
       <Filter>헤더 파일\Assets\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>헤더 파일\Assets\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
