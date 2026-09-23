@@ -46,8 +46,7 @@ void TitleScene::Update()
 {
 	_inputMgr.GetKeyDown();
 
-	//텍스쳐 랜덤 이동
-	Randomizer randSys;
+
 
 	_blinkTimer += 0.016f;
 
@@ -98,6 +97,9 @@ void TitleScene::Update()
 
 		_color = 0xFF000000 | (_r << 16) | (_g << 8) | _b;
 	}
+
+	//텍스쳐 랜덤 이동
+	Randomizer randSys;
 
 	_texTimer += 0.016f;
 	if (_texTimer >= TEXTURE_WAIT_TIME)
