@@ -16,13 +16,13 @@ private:
 
 	vector<Texture*> _textures;
 	float _texTimer = 0.0f;
-	const float TEXTURE_WAIT_TIME = 3.0f;
+	const float TEXTURE_WAIT_TIME = 1.5f;
 
 	Texture* _background = new Texture("rsc/imgs/MainMenu.png", VEC2(0, 0));
 
 	//text
 	int nFont = 0;
-	float _blinkTimer = 0.0f;
+	float _blinkTimer = .0f;
 	bool _showText = true;
 
 	//text-col
